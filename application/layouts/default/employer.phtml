@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title><?php echo $this->siteTitle;?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- styles -->
+    <?php
+        echo $this->headLink()->offsetSetStylesheet(1 ,$this->baseUrl().'/css/bootstrap.min.css')
+                              ->offsetSetStylesheet(2 ,$this->baseUrl().'/css/bootstrap-theme.min.css')                
+    ;?>
+    <link href="<?php echo $this->baseUrl();?>/img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+</head>
+<body>
+    <!-- Static navbar -->
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'index'), null, true);?>">Connectica</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#">Job <b class="caret"></b></a>
+              <ul class="dropdown-menu">                
+                  <li class="active"><a href="<?php echo $this->url(array('module'=>'employer','controller'=>'job','action'=>'index'), null, true);?>">My Job</a></li>
+              </ul>
+            </li>                        
+            <li class="dropdown">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#">Team Management <b class="caret"></b></a>
+              <ul class="dropdown-menu">                
+                <li><a href="#">Work Diary</a></li>
+                <li><a href="<?php echo $this->url(array('module'=>'employer','controller'=>'contract','action'=>'index'), null, true);?>">Contracts</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#">Collaberation <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Messaging</a></li>  
+                <li><a href="#">Notes</a></li>
+                <li><a href="#">Files</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#">Reports <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Weekly Summary</a></li>
+                <li><a href="#">Transaction History</a></li>
+                <li><a href="#">Work Summary</a></li>
+                <li><a href="#">Task Summary</a></li>
+                <li><a href="#">More Reports</a></li>
+              </ul>
+            </li>                                    			
+          </ul>
+          
+          <ul class="nav navbar-nav navbar-right">                        
+            <li class="dropdown">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="glyphicon glyphicon-cog"></span> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="<?php echo $this->url(array('module'=>'employer','controller'=>'index','action'=>'editprofile'), null, true);?>">Settings</a></li>
+              </ul>
+            </li>            
+            <li class="dropdown">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#"> 
+                  <?php if( $this->objSess->portrait!="" && file_exists(ASSETS_ROOT_PATH.$this->objSess->portrait) ) : ?>                          
+                  <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH.$this->objSess->portrait."&w=32";?>" class="img-thumbnail">
+                <?php else : ?>
+                  <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH."portrait.png&w=32";?>" class="img-thumbnail">
+                <?php endif;?>
+                  <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">                                
+                <li class="dropdown-header">Hi, <?php echo $this->objSess->email;?></li>
+                <li class="dropdown-header">Logged as Employer</li>
+                <li class="divider"></li>
+		<li><a href="<?php echo $this->url(array('module'=>'employer','controller'=>'index','action'=>'profile'), null, true);?>">My Profile</a></li>                
+                <li>
+                    <?php if( Zend_Auth::getInstance()->hasIdentity() ) : ?>	
+                    <a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'), null, true);?>">Logout</a>
+                    <?php endif;?>
+                </li>                
+              </ul>
+            </li>
+          </ul>                                  
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+        <?php if(!empty($this->message)) : ?>        
+            <?php if($this->messageType=='error') : ?>
+                <div class="alert alert-danger"><?php echo $this->message;?></div>
+            <?php elseif($this->messageType=='success') : ?>
+                <div class="alert alert-success"><?php echo $this->message;?></div>
+            <?php else : ?>
+                <div class="alert alert-warning"><?php echo $this->message;?></div>
+            <?php endif;?>        
+        <?php endif; ?>
+                
+        <?php echo $this->layout()->content ?>
+        <hr>
+        <footer>
+        <ul class="pull-center nav nav-pills">
+            <li class=""><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'index'), null, true);?>">Home</a></li>
+            <li class=""><a href="<?php echo $this->url(array('module'=>'default','controller'=>'static','action'=>'aboutus'), null, true);?>">About us</a></li>
+            <li class=""><a href="<?php echo $this->url(array('module'=>'default','controller'=>'static','action'=>'contactus'), null, true);?>">Contact us</a></li>
+            <li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'static','action'=>'howtogetjob'), null, true);?>">How to get a Jobs</a></li>
+            <li class="pull-right"><a href="<?php echo $this->baseUrl();?>/connectica.jnlp">Download tracker</a></li>
+        </ul>
+        <p>&copy; <?php echo date("Y");?> by HW Ventures Ltd / Vincas Limited. All rights reserved.</p>
+        </footer>
+    </div> <!-- /.container -->
+<!-- scripts -->
+<?php 
+    echo $this->headScript()->offsetSetFile(1 ,$this->baseUrl().'/js/jquery.js')
+                            ->offsetSetFile(2 ,$this->baseUrl().'/js/bootstrap.min.js')                            
+;?>
+<?php echo $this->InlineScript();?>
+</body> 
+</html>

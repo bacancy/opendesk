@@ -1,0 +1,64 @@
+<div class="row">        
+    <?php echo $this->sidebar;?>
+    <div class="col-sm-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">My Profile</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data" role="form">
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Email');?></label>
+                    <div class="col-lg-4"><?php echo $this->profileData['email'];?></div>
+                  </div>                                    
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Username');?></label>
+                    <div class="col-lg-4"><?php echo $this->profileData['username'];?></div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Portrait');?></label>
+                    <div class="col-lg-4">
+                        <?php if( $this->profileData['portrait']!="" && file_exists(ASSETS_ROOT_PATH.$this->profileData['portrait']) ) : ?>                          
+                          <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH.$this->profileData['portrait']."&w=100";?>" class="img-thumbnail">
+                        <?php else : ?>
+                          <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH."portrait.png&w=100";?>" class="img-thumbnail">
+                        <?php endif;?>
+                        <?php echo $this->objForm->portrait;?>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('First name');?></label>
+                    <div class="col-lg-4"><?php echo $this->objForm->firstname;?></div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Last name');?></label>
+                    <div class="col-lg-4"><?php echo $this->objForm->lastname;?></div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Country');?></label>
+                    <div class="col-lg-4"><?php echo $this->objForm->country;?></div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('City');?></label>
+                    <div class="col-lg-4"><?php echo $this->objForm->city;?></div>
+                  </div>
+				  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Profile Title');?></label>
+                    <div class="col-lg-4"><?php echo $this->objForm->profile_title;?></div>
+                  </div>
+				  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Profile Description');?></label>
+                    <div class="col-lg-4"><?php echo $this->objForm->profile_desc;?></div>
+                  </div>
+                   <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Profile Hourly Rate');?></label>
+                    <div class="col-lg-4"><?php echo $this->objForm->profile_hourly_rate;?></div>
+                  </div> 
+                  <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10"><?php echo $this->objForm->submit;?></div>
+                  </div>
+                </form>
+            </div>
+        </div>    
+    </div>
+</div>    

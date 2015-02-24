@@ -1,0 +1,64 @@
+<script >
+function delete_user(id)
+{
+	var confirm = window.confirm('Do you want to Delete this Agent?.');
+	if(confirm)
+	{
+		window.location = id;		
+	}
+}
+</script>
+<div class="row">
+<?php echo $this->sidebar;?>
+    <div class="col-sm-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Agencies</h3>
+            </div>
+            <div class="panel-body">                
+                <?php if($this->allagencies) : ?>                
+                <div class="form-horizontal">                                      
+				<div class="form-group">					
+					<div class="width-100">
+						<div class="agency_info width-5">SNo</div>
+						<div class="agency_info">Agent Name</div>
+						<div class="agency_info">Work Profile</div>
+						<div class="agency_info">Email</div>
+						<div class="agency_info center">Action</div>
+					</div>
+				</div>
+				<?php
+				$sno=1;
+				foreach($this->allagencies as $agent)
+				{
+					$agent_id = base64_encode($agent['id']);
+					$location = $this->url(array('module'=>'contractor','controller'=>'agency','action'=>'delete'), null, true)."/agent_id/".$agent_id;
+				?>
+				<div class="form-group">					
+					<div class="width-100">
+						<div class="agency_info width-5"><?=$sno?></div>
+						<div class="agency_info"><?=$agent['name']?></div>
+						<div class="agency_info"><?=$agent['workprofile']?></div>
+						<div class="agency_info"><?=$agent['email']?></div>
+						<div class="agency_info">
+							<div class="action">
+								<a href="<?php echo $this->url(array('module'=>'contractor','controller'=>'agency','action'=>'profile'), null, true);?>/agent_id/<?=$agent_id?>" class="pull-right">View</a> 
+							</div  class="action">
+							<div>
+								<a href="javascript:delete_user('<?=$location?>')">Delete</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php
+				$sno++;
+				}
+				?>
+                    
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>    
+    </div>   
+    
+</div>    

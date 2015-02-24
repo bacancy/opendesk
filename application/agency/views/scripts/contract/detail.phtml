@@ -1,0 +1,124 @@
+<script >
+function changestatus(val)
+{
+	var confirm = window.confirm('Do you want to change status?.');
+	if(confirm)
+	{
+		var URL = "<?php echo $this->url(array('module'=>'agency','controller'=>'contract','action'=>'changestatus','contract_id'=>$this->arrData['id']), null, true);?>";
+		window.location = URL+"/status/"+val;
+	}
+}
+</script>
+<?php if(count($this->arrData) < 1) : ?>
+    <p><?php echo $this->translate('no record found');?></p>
+<?php else: ?>
+	
+    <div class="panel panel-<?php echo $this->jobStatusAlert[$this->arrData['contract_status']];?>">
+        <div class="panel-heading">
+            <strong>Contract for : </strong> <?php echo $this->escape($this->arrData['contract_title']);?>            
+			<div class="pull-right">
+				<?php $status = $this->arrData['contract_status'];?>
+				Change Status:
+					<select name="status" onchange="javscript:changestatus(this.value)">
+						<option <?php if($status==1){echo 'selected="selected"';}?> value="1">active</option>
+						<option <?php if($status==2){echo 'selected="selected"';}?> value="2">paused</option>
+						<option <?php if($status==3){echo 'selected="selected"';}?> value="3">closed</option>
+					</select>
+				
+			</div>
+			<!--<span class="badge pull-right"><?php //echo $this->jobStatus[$this->arrData['contract_status']];?></span>-->
+        </div>
+        <div class="panel-body">            
+            <div class="form-horizontal">
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Title: </label>
+                    <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->arrData['contract_title']);?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Description: </label>
+                  <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->arrData['contract_description']);?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Status: </label>
+                  <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->jobStatus[$this->arrData['contract_status']]);?></p></div>
+                </div>                
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Started at: </label>
+                  <div class="col-lg-8">
+                      <p class="form-control-static">
+                          <?php $date = new DateTime($this->arrData['contract_created']);?>
+                          <?php echo $date->format('g:ia \o\n l jS F Y');?>
+                      </p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Last changed at: </label>
+                  <div class="col-lg-8">
+                      <p class="form-control-static">
+                          <?php $date = new DateTime($this->arrData['contract_modified']);?>
+                          <?php echo $date->format('g:ia \o\n l jS F Y');?>                                                    
+                      </p>
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel-heading">
+            Job detail :
+        </div>
+        <div class="panel-body">            
+            <div class="form-horizontal">
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">job title: </label>
+                    <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->arrData['job_title']);?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">job description: </label>
+                    <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->arrData['job_description']);?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">job type: </label>
+                    <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->jobType[$this->arrData['job_type']]);?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">job estimate: </label>
+                    <div class="col-lg-8"><p class="form-control-static"><?php echo ($this->arrData['job_type']=="1")?"$".$this->escape($this->arrData['job_estimate']):$this->escape($this->arrData['job_estimate'])." Hours";?></p></div>
+                </div>                
+            </div>
+        </div>
+        
+        <div class="panel-heading">
+            employer detail :
+        </div>
+        <div class="panel-body">            
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">employer portrait</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static">
+                          <?php if( $this->arrData['employer_portrait']!="" && file_exists(ASSETS_ROOT_PATH.$this->arrData['employer_portrait']) ) : ?>                          
+                            <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH.$this->arrData['employer_portrait']."&w=100";?>" class="img-thumbnail">
+                          <?php else : ?>
+                            <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH."portrait.png&w=100";?>" class="img-thumbnail">
+                          <?php endif;?>
+                      </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">employer firstname: </label>
+                    <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->arrData['employer_firstname']);?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">employer lastname: </label>
+                    <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->arrData['employer_lastname']);?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">employer email: </label>
+                        <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->arrData['employer_email']);?></p></div>
+                </div>                                
+            </div>
+			<span class="badge pull-right"><a href="javascript:history.go(-1)">Back</a></span>
+		</div>
+        
+    </div>            
+<?php endif; ?>

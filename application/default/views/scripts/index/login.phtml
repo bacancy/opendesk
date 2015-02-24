@@ -1,0 +1,30 @@
+<div class="row">                    
+    <blockquote>
+        <p><?php echo $this->translate('Member Login');?></p>
+        <small>login with your email and password</small>
+    </blockquote>    
+    <form class="form-horizontal" action="" method="POST" role="form">
+      <div class="form-group">
+        <label for="inputEmail1" class="col-lg-2 control-label"><?php echo $this->translate('Email');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->email;?></div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword1" class="col-lg-2 control-label"><?php echo $this->translate('Password');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->password;?></div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Remember me
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10"><?php echo $this->objForm->submit;?></div>
+      </div>
+    </form> 
+    
+    <p><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'forgotpassword'), null, true);?>">forgot password?</a></p>    
+</div>        

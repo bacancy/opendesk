@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title><?php echo $this->siteTitle;?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- styles -->
+    <?php
+        echo $this->headLink()->offsetSetStylesheet(1 ,$this->baseUrl().'/css/bootstrap.min.css')
+                              ->offsetSetStylesheet(2 ,$this->baseUrl().'/css/bootstrap-theme.min.css')
+							  ->offsetSetStylesheet(3 ,$this->baseUrl().'/css/style.css')
+    ;?>
+    <link href="<?php echo $this->baseUrl();?>/img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+</head>
+<body>
+    <!-- Static navbar -->
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'index'), null, true);?>">Connectica</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'index'), null, true);?>">Home</a></li>
+            <?php if( !Zend_Auth::getInstance()->hasIdentity() ) : ?>
+            <li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'index'), null, true);?>">Sign Up</a></li>
+            <li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'login'), null, true);?>">Login</a></li>
+            <?php endif;?>
+          </ul>          
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+        <?php if(!empty($this->message)) : ?>        
+            <?php if($this->messageType=='error') : ?>
+                <div class="alert alert-danger"><?php echo $this->message;?></div>
+            <?php elseif($this->messageType=='success') : ?>
+                <div class="alert alert-success"><?php echo $this->message;?></div>
+            <?php else : ?>
+                <div class="alert alert-warning"><?php echo $this->message;?></div>
+            <?php endif;?>        
+        <?php endif; ?>
+                
+        <?php echo $this->layout()->content ?>        
+        <hr>
+        <footer> 
+        <ul class="pull-center nav nav-pills">
+            <li class=""><a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'index'), null, true);?>">Home</a></li>
+            <li class=""><a href="<?php echo $this->url(array('module'=>'default','controller'=>'static','action'=>'aboutus'), null, true);?>">About us</a></li>
+            <li class=""><a href="<?php echo $this->url(array('module'=>'default','controller'=>'static','action'=>'contactus'), null, true);?>">Contact us</a></li>
+            <li><a href="<?php echo $this->url(array('module'=>'default','controller'=>'static','action'=>'howtogetjob'), null, true);?>">How to get a Jobs</a></li>
+            <li class="pull-right"><a href="<?php echo $this->baseUrl();?>/connectica.jnlp">Download tracker</a></li>            
+        </ul>            
+        <p>&copy; <?php echo date("Y");?> by HW Ventures Ltd / Vincas Limited. All rights reserved.</p>
+        </footer>
+    </div> <!-- /.container -->
+<!-- scripts -->
+<?php 
+    echo $this->headScript()->offsetSetFile(1 ,$this->baseUrl().'/js/jquery.js')
+                            ->offsetSetFile(2 ,$this->baseUrl().'/js/bootstrap.min.js')                            
+;?>
+<?php echo $this->InlineScript();?>
+</body> 
+</html>

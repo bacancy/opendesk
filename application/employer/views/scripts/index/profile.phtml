@@ -1,0 +1,122 @@
+<!-- rateit jquery plugin -->
+<?php $this->headLink()->offsetSetStylesheet(11 ,$this->baseUrl().'/css/rateit/rateit.css');?>
+<?php $this->headScript()->offsetSetFile(11 ,$this->baseUrl().'/js/rateit/jquery.rateit.min.js');?>
+
+<div class="row">
+    <?php echo $this->sidebar;?>
+    <div class="col-sm-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">My Profile</h3>
+            </div>
+            <div class="panel-body">                
+                <?php if( isset($this->profileData) ) : ?>                
+                <div class="form-horizontal">                                      
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">&nbsp;</label>
+                    <div class="col-lg-10">
+                        <p class="form-control-static"> 
+                            <a href="<?php echo $this->url(array('module'=>'employer','controller'=>'index','action'=>'editprofile'), null, true);?>" class="pull-right">Edit Profile</a> 
+                        </p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">Portrait</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static">
+                          <?php if( $this->profileData['portrait']!="" && file_exists(ASSETS_ROOT_PATH.$this->profileData['portrait']) ) : ?>                          
+                            <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH.$this->profileData['portrait']."&w=100";?>" class="img-thumbnail">
+                          <?php else : ?>
+                            <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH."portrait.png&w=100";?>" class="img-thumbnail">
+                          <?php endif;?>
+                      </p>
+                      <p>
+                          <div class="rateit" data-rateit-value="<?php echo $this->profileData['avg_rating'];?>" data-rateit-ispreset="true" data-rateit-readonly="true"></div>                          
+                      </p>
+                    </div>
+                  </div>                                        
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">Email</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->profileData['email'];?></p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">username</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->profileData['username'];?></p>
+                    </div>
+                  </div>  
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">firstname</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->profileData['firstname'];?></p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">lastname</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->profileData['lastname'];?></p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">country</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo ucfirst(strtolower($this->profileData['country_name']));?></p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">city</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->profileData['city'];?></p>
+                    </div>
+                  </div>
+				  <hr>
+				  <div class="form-group">
+                    <label class="col-lg-2 control-label">Profile Title</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->profileData['profile_title'];?></p>
+                    </div>
+                  </div>
+		  <div class="form-group">
+                    <label class="col-lg-2 control-label">Profile Desc</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->profileData['profile_desc'];?></p>
+                    </div>
+                  </div>                                 
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">Last modified</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->profileData['modified'];?></p>
+                    </div>
+                  </div>  
+                  
+                    <?php if(isset($this->contractData)) : ?>
+                    <hr>
+                    <?php //_pr($this->contractData);?>
+                        <?php foreach($this->contractData as $contract) : ?> 
+                        <div class="form-group">                           
+                            <div class="col-lg-12">
+                                <p class="form-control-static"><strong><?php echo $contract['title'];?></strong></p>
+                                <p class="form-control-static"><strong>Detail:</strong> <?php echo $contract['description'];?></p>
+                                <?php if($contract['status']=='4') : ?>
+                                <p class="form-control-static"><strong>Contractor rating:</strong> 
+                                    <div class="rateit" data-rateit-value="<?php echo $contract['contractor_rating'];?>" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                                </p>
+                                <p class="form-control-static"><strong>Contractor review:</strong> <?php echo $contract['contractor_review'];?></p>
+                                <?php else :?>
+                                <p class="form-control-static">Contract is running</p>
+                                <?php endif;?>
+                            </div>
+                        </div>                         
+                        <?php endforeach;?>
+                    <?php endif; ?>                 
+                                  
+                </div>
+                <?php endif; ?>
+                                                
+            </div>
+        </div>    
+    </div>   
+    
+</div>    

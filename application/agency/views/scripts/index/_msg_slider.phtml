@@ -1,0 +1,37 @@
+<?php
+$request = new Zend_Controller_Request_Http();
+$pagename = $request->getCookie('pagename');
+
+//deceleration
+$messages		="";
+$sent_messages	="";
+$compose		="";
+
+if(isset($pagename))
+{
+	switch ($pagename)
+	{
+		case "Sent Messages":
+		  $sentmessages    = "active";
+		  break;
+		case "My Messages":
+		  $messages    = "active";
+		  break;
+		case "Compose message":
+		  $compose    = "active";
+		  break;
+	}
+}
+?>
+
+<div class="col-sm-2">
+    <div class="list-group">      
+      <a class="list-group-item <?=$compose?>" href="<?php echo $this->url(array('module'=>'agency','controller'=>'agent','action'=>'compose'), null, true);?>">Compose</a>
+    </div>
+    <div class="list-group">
+      <a class="list-group-item <?=$messages?>" href="<?php echo $this->url(array('module'=>'agency','controller'=>'agent','action'=>'inbox'), null, true);?>">Inbox</a>
+    </div>
+	<div class="list-group">
+      <a class="list-group-item <?=$sentmessages?>" href="<?php echo $this->url(array('module'=>'agency','controller'=>'agent','action'=>'message'), null, true);?>">Sent</a>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+<?php
+$agent_id = base64_encode($this->agencyinfo['id']);
+?>
+<div class="row">
+<?php echo $this->sidebar;?>
+	<div class="col-sm-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Agency Profile</h3>
+            </div>
+            <div class="panel-body">                
+                <?php if( isset($this->agencyinfo) ) : ?>                
+                <div class="form-horizontal">                                      
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">&nbsp;</label>
+                    <div class="col-lg-10">
+                        <p class="form-control-static"> 
+                            <a href="<?php echo $this->url(array('module'=>'contractor','controller'=>'Agency','action'=>'editagent'), null, true);?>/agent_id/<?=$agent_id?>" class="pull-right">Edit Profile</a> 
+                        </p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">Agent Photo</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static">
+                          <?php if( $this->agencyinfo['profile_pic']!="" && file_exists(ASSETS_ROOT_PATH.$this->agencyinfo['profile_pic']) ) : ?>                          
+                            <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH.$this->agencyinfo['profile_pic']."&w=100";?>" class="img-thumbnail">
+                          <?php else : ?>
+                            <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH."portrait.png&w=100";?>" class="img-thumbnail">
+                          <?php endif;?>
+                      </p>
+                    </div>
+                  </div>                                        
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">Name</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->agencyinfo['name'];?></p>
+                    </div>
+                  </div>
+				  <div class="form-group">
+                    <label class="col-lg-2 control-label">Work Profile</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->agencyinfo['workprofile'];?></p>
+                    </div>
+                  </div>
+				  
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">Email</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->agencyinfo['email'];?></p>
+                    </div>
+                  </div>  
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">Mobile</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->agencyinfo['mobile'];?></p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">Address</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->agencyinfo['address'];?></p>
+                    </div>
+                  </div>
+				  <div class="form-group">
+                    <label class="col-lg-2 control-label">City</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->agencyinfo['city'];?></p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">State</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->agencyinfo['state'];?></p>
+                    </div>
+                  </div>
+				  <div class="form-group">
+                    <label class="col-lg-2 control-label">country</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $this->agencyinfo['country'];?></p>
+                    </div>
+                  </div>
+                  <?php
+				  if($this->agencyinfo['modified'])
+				  {
+					$last_modified = date("D, M dS Y",$this->agencyinfo['modified']);
+				  }
+				  else
+				  {
+					$last_modified = "Not modified";
+				  }
+				  ?>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">Last modified</label>
+                    <div class="col-lg-10">
+                      <p class="form-control-static"><?php echo $last_modified;?></p>
+                    </div>
+                  </div>  
+                    
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>    
+    </div>   
+    
+</div>    

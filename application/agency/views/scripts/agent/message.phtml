@@ -1,0 +1,62 @@
+<div class="row">
+<?php echo $this->sidebar;?>
+    <div class="col-sm-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Messages</h3>
+            </div>
+            <div class="panel-body">                
+                <?php if($this->messages) : ?>                
+                <div class="form-horizontal">                                      
+				<div class="form-group">					
+					<div class="width-100">
+						<div class="agency_info width-5">SNo</div>
+						<div class="agency_info">Message</div>
+						<div class="agency_info">Sent By</div>
+						<div class="agency_info">Date</div>
+						<div class="agency_info center">Action</div>
+					</div>
+				</div>
+				<?php
+				$sno=1;
+				//echo "<pre>";print_r($this->messages);exit;
+				foreach($this->messages as $message)
+				{
+					$msg_id = base64_encode($message['id']);
+					$location = $this->url(array('module'=>'contractor','controller'=>'agent','action'=>'delete'), null, true)."/agent_id/".$msg_id;
+					if($message['sent_date']!=0)
+					{
+						date_default_timezone_set("Asia/Calcutta");
+						$date = date("D, M dS Y",$message['sent_date']);
+					}
+					else
+					{
+						$date = date("D, M dS Y");
+					}
+				?>
+				<div class="form-group">
+					<div class="width-100">
+						<div class="agency_info width-5"><?=$sno?></div>
+						<div class="agency_info"><?=$message['subject']?></div>
+						<div class="agency_info"><?=$message['username']?></div>
+						<div class="agency_info"><?=$date?></div>
+						<div class="agency_info">
+							<div class="action">
+								<a href="<?php echo $this->url(array('module'=>'agency','controller'=>'agent','action'=>'messageinfo'), null, true);?>/msg_id/<?=$msg_id?>" class="pull-right">View</a>
+							</div>
+							<div>
+								<a href="javascript:delete_user('<?=$location?>')">Delete</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php
+				$sno++;
+				}
+				?>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>

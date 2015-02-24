@@ -1,0 +1,60 @@
+<?php $this->headScript()->offsetSetFile(11 ,$this->baseUrl().'/includes/ckeditor/ckeditor.js');?>
+<?php $this->inlineScript()->captureStart() ?>
+
+var editor = CKEDITOR.replace('editor1',
+      {
+
+
+        toolbar :
+            [
+                { name: 'document', items : [ 'Preview' ] },
+                { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+                { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },
+                { name: 'insert', items : [ 'Image','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'] },
+                        '/',
+                { name: 'styles', items : [ 'Styles','Format' ] },
+                { name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] },
+                { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+                { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+                { name: 'tools', items : [ 'Maximize','-','About' ] }
+
+            ],
+        width: "700px",
+        height: "300px"
+
+        });
+<?php $this->inlineScript()->captureEnd() ?>
+
+
+<?php //echo $this->headLink()->offsetSetStylesheet(1 ,$this->baseUrl().'/css/bootstrap.min.css')							->offsetSetStylesheet(1 ,$this->baseUrl().'/css/bootstrap.min.css')							->offsetSetStylesheet(1 ,$this->baseUrl().'/css/bootstrap.min.css');?>
+ 
+<div class="row">
+<?php echo $this->sidebar;?>
+    <div class="col-sm-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Messages</h3>
+            </div>
+            <div class="panel-body">                
+                <form class="form-horizontal" action="" method="POST" role="form">
+				  <div class="form-group">
+					<label for="inputEmail1" class="col-lg-2 control-label"><?php echo $this->translate('Receiver name');?></label>
+					<div class="col-lg-4"><?php echo $this->objForm->receiver_name;?></div>
+				  </div>
+					<div class="form-group">
+					<label for="inputEmail1" class="col-lg-2 control-label"><?php echo $this->translate('Subject');?></label>
+					<div class="col-lg-4"><?php echo $this->objForm->subject;?></div>
+				  </div>
+				  <div class="form-group">
+					<label for="inputEmail1" class="col-lg-2 control-label"><?php echo $this->translate('Body');?></label>
+					<div class="col-lg-4"><?php echo $this->objForm->editor1;?></div>
+				  </div>
+				  <div class="form-group">
+					
+					<div class="col-lg-4"><?php echo $this->objForm->submit;?></div>
+				  </div>
+				</form>
+            </div>
+        </div>
+    </div>
+</div>

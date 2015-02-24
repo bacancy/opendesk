@@ -1,0 +1,50 @@
+
+<?php if(count($this->arrDataList) < 1) : ?>
+    <p><?php echo $this->translate('no record found');?></p>
+<?php else: ?>    
+    <?php foreach ( $this->arrDataList as $this->arrData ):?>            
+    <div id="<?php echo $this->arrData->id;?>" class="panel panel-<?php echo $this->jobStatusAlert[$this->arrData->status];?>">
+        <div class="panel-heading">
+            <strong>Contract for : </strong> <?php echo ($this->arrData->title);?>
+            - <a href="<?php echo $this->url(array('module'=>'contractor','controller'=>'contract','action'=>'detail','id'=>$this->arrData->id), null, true);?>">Detail</a> 
+            - <a href="<?php echo $this->url(array('module'=>'contractor','controller'=>'workdiary','action'=>'index','contract_id'=>$this->arrData->id), null, true);?>">view work diary</a> 
+            <span class="badge pull-right"><?php echo $this->jobStatus[$this->arrData->status];?></span></div>
+        <div class="panel-body">            
+            <div class="form-horizontal">
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Title: </label>
+                    <div class="col-lg-8"><p class="form-control-static"><?php echo ($this->arrData->title);?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Description: </label>
+                  <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->arrData->description);?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Status: </label>
+                  <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->jobStatus[$this->arrData->status]);?></p></div>
+                </div>                
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Started at: </label>
+                  <div class="col-lg-8">
+                      <p class="form-control-static">
+                          <?php $date = new DateTime($this->arrData->created);?>
+                          <?php echo $date->format('g:ia \o\n l jS F Y');?>
+                      </p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Last changed at: </label>
+                  <div class="col-lg-8">
+                      <p class="form-control-static">
+                          <?php $date = new DateTime($this->arrData->modified);?>
+                          <?php echo $date->format('g:ia \o\n l jS F Y');?>                                                    
+                      </p>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>        
+    <?php endforeach;?>   
+<?php endif; ?>
+   
+<?php echo $this->paginationControl ( $this->objPaginator, 'Sliding', 'paginator.phtml', array ('extraVar' => $this->pagingExtraVar ) ); ?>

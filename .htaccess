@@ -1,0 +1,7 @@
+Options -Indexes
+
+
+RewriteEngine On
+
+php_flag display_errors on
+

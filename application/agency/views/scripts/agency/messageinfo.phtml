@@ -1,0 +1,104 @@
+<div class="row">
+<?php echo $this->sidebar;?>
+    <div class="col-sm-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Message info</h3>
+            </div>
+            <div class="panel-body">
+				<form class="form-horizontal" action="" method="POST" enctype="multipart/form-data" role="form">
+				<div class="form-horizontal">
+					<div id="message_group">
+						<div id="msg_info">
+							<?php 
+							//echo "<pre>";print_r($this->messageinfo);exit;
+							if($this->messageinfo) : 
+								$messageinfo = $this->messageinfo;
+
+								if($messageinfo['sent_date']!=0)
+								{
+									$date = date("M dS Y",$messageinfo['sent_date']);
+								}
+								else
+								{
+									$date = date("M dS Y");
+								}
+							?>
+							<div class="msg_subject">
+								<?=ucfirst($messageinfo['subject'])?>
+							</div>
+							<div class="msg_body">							
+								<div class="msg_sender">
+									<?=ucfirst($messageinfo['sender'])?>
+									<br>
+									<span class="date">
+										<?=$date?>
+									</span>
+								</div>
+								<div class="message">
+									<?=$messageinfo['message']?>
+								</div>
+							</div>
+						<?php
+						foreach($this->messageinfo['reply'] as $reply)
+						{
+							if($reply)
+							{
+								if($reply['date']!=0)
+								{
+									$date = date("M dS Y",$reply['date']);
+								}
+								else
+								{
+									$date = date("M dS Y");
+								}
+							?>
+								
+									<div class="msg_body">							
+										<div class="msg_sender">
+											<?=ucfirst($reply['reply_by'])?>
+											<br>
+											<span class="date">
+												<?=$date?>
+											</span>
+										</div>
+										<div class="message">
+											<?=$reply['reply']?>
+										</div>
+									</div>
+								
+						<?php
+							}
+						}
+						?>
+					<?php endif; ?>
+					</div>
+					<div class="clear"></div>
+					<div class="msg_reply">
+						<label class="control-label"><?php echo $this->translate('Reply');?></label>
+						<?php echo $this->objForm->reply?>
+						<br>
+						<?php echo $this->objForm->submit?>
+					</div>
+					</div>
+					<div id="include_members">
+						<div class="member_title">
+							Members
+						</div>
+						<?php
+						foreach($this->messageinfo['participated_users'] as $user_name)
+						{
+						?>
+							<div class="member">
+								<?=ucfirst($user_name['receiver_name'])?>
+							</div>
+						<?php
+						}						
+						?>
+					</div>
+				</div>
+				</form>
+            </div>
+        </div>    
+    </div>
+</div>    

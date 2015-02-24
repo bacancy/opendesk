@@ -1,0 +1,72 @@
+<!-- for infinite scroll -->
+<?php $this->headScript()->offsetSetFile(11 ,$this->baseUrl().'/js/infinite_scroll/jquery_infinite_scroll.js');?>
+
+<?php $this->InlineScript()->captureStart()?>
+$(document).ready(function() {
+    jQuery.ias({
+        container : '.listcontainer',
+        item: '.item',
+        pagination: '.pagination',
+        next: '.next',
+        loader: '<img src="https://raw.github.com/webcreate/infinite-ajax-scroll/master/dist/images/loader.gif"/>', 
+        triggerPageThreshold: 100       
+    });
+});
+<?php $this->InlineScript()->captureEnd()?>
+
+<?php if(count($this->arrDataList) < 1) : ?>
+    <p><?php echo $this->translate('no record found');?></p>
+<?php else: ?>    
+    <div class="listcontainer">
+    <?php foreach ( $this->arrDataList as $this->arrData ):?>                
+    <div id="<?php echo $this->arrData->id;?>" class="panel panel-<?php echo $this->jobStatusAlert[$this->arrData->status];?> item">
+        <div class="panel-heading">
+            <strong>Contract for : </strong> <?php echo ($this->arrData->title);?>            
+            <span class="badge pull-right"><?php echo $this->jobStatus[$this->arrData->status];?></span>
+        </div>
+        <div class="panel-body">            
+            <div class="form-horizontal">
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Title: </label>
+                    <div class="col-lg-8"><p class="form-control-static"><?php echo ($this->arrData->title);?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Description: </label>
+                  <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->arrData->description);?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Status: </label>
+                  <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->jobStatus[$this->arrData->status]);?></p></div>
+                </div>                
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Started at: </label>
+                  <div class="col-lg-8">
+                      <p class="form-control-static">
+                          <?php $date = new DateTime($this->arrData->created);?>
+                          <?php echo $date->format('g:ia \o\n l jS F Y');?>
+                      </p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Last changed at: </label>
+                  <div class="col-lg-8">
+                      <p class="form-control-static">
+                          <?php $date = new DateTime($this->arrData->modified);?>
+                          <?php echo $date->format('g:ia \o\n l jS F Y');?>                                                    
+                      </p>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a href="<?php echo $this->url(array('module'=>'employer','controller'=>'contract','action'=>'detail','id'=>$this->arrData->id), null, true);?>"><span class="badge">Detail</span></a>
+            <?php if($this->arrData->status != '4' ) : ?>
+                <a href="<?php echo $this->url(array('module'=>'employer','controller'=>'contract','action'=>'edit','id'=>$this->arrData->id), null, true);?>"><span class="badge">Edit</span></a>            
+            <?php endif;?>
+        </div>
+    </div>        
+    <?php endforeach;?>   
+    </div>    
+<?php endif; ?>
+   
+<?php echo $this->paginationControl ( $this->objPaginator, 'Sliding', 'paginator.phtml', array ('extraVar' => $this->pagingExtraVar ) ); ?>

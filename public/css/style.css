@@ -1,0 +1,191 @@
+/* 
+    Document   : style
+    Created on : 30 Aug, 2013, 11:47:02 AM
+    Author     : bacancy
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.agency_info {
+    float: left;
+    margin: 0 5px;
+    padding: 0 5px;
+    width: 20%;
+}
+
+.width-5 {
+    width: 5%;
+}
+
+.agency_info .action {
+    float: left;
+    padding: 0 40px;
+}
+
+.center
+{
+	text-align:center;
+}
+
+.clear {
+    clear: both;
+}
+
+#msg_info
+{
+	width:100%;
+	margin:2px;
+	border:1px solid #ccc;
+	box-shadow: 2px 2px 2px #ccc;
+	border-radius:5px;
+	float:left;
+}
+
+#msg_info .msg_subject
+{
+	font-size:16px;
+	padding:5px;
+	border-bottom:1px solid #ccc;
+}
+
+#msg_info .msg_sender
+{
+	color:pink;	
+	padding:5px;
+	width: 20%;
+	float: left;
+}
+
+#msg_info .date
+{
+	color:#ccc;
+}
+
+#msg_info .message {
+    float: left;
+    padding: 5px 2px;
+    width: 79%;
+}
+#msg_info .msg_body {
+    border-bottom: 1px solid #CCCCCC;
+    float: left;
+    margin: 2px;
+    width: 100%;
+}
+
+#message_group {
+    width: 80%;
+	float:left;
+}
+
+#message_group .msg_reply {
+    margin: 10px;
+    padding: 10px;
+    width: 80%;
+	
+}
+
+#include_members {
+    float: left;
+    margin: 5px;
+    padding: 5px;
+    width: 17%;
+}
+
+#include_members .member {
+    padding: 5px;
+	border-bottom: 1px solid;
+}
+
+#include_members .member_title {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#profiles
+{
+	
+}
+
+#profiles .single_profile
+{
+	background-color: #F5F5F5;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px 4px 4px 4px;
+    color: #333333;
+    display: block;
+    font-size: 13px;
+    line-height: 1.42857;
+    margin: 0 0 10px;
+    padding: 9.5px;
+    word-break: break-all;
+    word-wrap: break-word;
+	width: 100%;
+	float:left;
+}
+
+#profiles .profile_pic {
+    float: left;
+    width: 100px;
+}
+
+#profiles .profile_body {
+    float: left;
+    padding: 1%;
+    width: 85%;
+}
+
+#profiles .profile_name {
+    color: #0000FF;
+	font-size: 16px;
+}
+
+#profiles .profile_title {
+    color: #000000; 
+}
+
+.wedget
+{
+	border: 3px solid #F0F0ED;
+    border-radius: 8px 8px 8px 8px;
+    margin-bottom: 15px;
+	padding:15px;
+    overflow-x: hidden;
+    width: 16.6667%;
+	float:left;
+}
+
+.callout {
+    border-left: 3px solid #EEEEEE;
+    margin: 20px 0;
+    padding: 20px;
+}
+.callout h4 {
+    margin-bottom: 5px;
+    margin-top: 0;
+}
+.callout p:last-child {
+    margin-bottom: 0;
+}
+.callout-danger {
+    background-color: #FDF7F7;
+    border-color: #EED3D7;
+}
+.callout-danger h4 {
+    color: #B94A48;
+}
+.callout-warning {
+    background-color: #FAF8F0;
+    border-color: #FAEBCC;
+}
+.callout-warning h4 {
+    color: #8A6D3B;
+}
+.callout-info {
+    background-color: #F4F8FA;
+    border-color: #BCE8F1;
+}
+.callout-info h4 {
+    color: #34789A;
+}

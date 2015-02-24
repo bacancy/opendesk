@@ -1,0 +1,42 @@
+<?php if(count($this->arrDataList) < 1) : ?>
+    <p><?php echo $this->translate('no any bid on this job');?></p>
+<?php else: ?>            
+    <?php if(!empty($this->contractStatus)) : ?>
+    <p><a href="<?php echo $this->url(array('module'=>'employer','controller'=>'contract','action'=>'edit','id'=>$this->contractStatus['id']), null, true);?>"><span class="badge">contract already started for this job, Go to contract</span></a></p>
+    <?php endif;?>            
+        
+    <?php foreach ( $this->arrDataList as $this->arrData ):?>
+    <div id="<?php echo $this->arrData->id;?>" class="panel panel-default">
+        <div class="panel-heading">                          
+            <div class="form-horizontal">
+            <div class="form-group">
+                <label for="" class="col-lg-1 control-label">
+                    <?php if( $this->arrData->portrait!="" && file_exists(ASSETS_ROOT_PATH.$this->arrData->portrait) ) : ?>                          
+                      <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH.$this->arrData->portrait."&w=100";?>" class="img-thumbnail">
+                    <?php else : ?>
+                      <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH."portrait.png&w=100";?>" class="img-thumbnail">
+                    <?php endif;?>
+                </label>
+                <div class="col-lg-4">
+                    <p class="form-control-static"><strong>Name:</strong> <?php echo ($this->arrData->firstname);?> <?php echo ($this->arrData->lastname);?></p>
+                    <p class="form-control-static"><strong>Email:</strong> <?php echo ($this->arrData->email);?></p>
+                    <p class="form-control-static"><strong>Username:</strong> <?php echo ($this->arrData->username);?></p>                        
+                </div>
+                <div class="col-lg-7">
+                    <span class="badge pull-right"><?php echo $this->userType[$this->arrData->type];?></span> 
+					<span class="pull-right">&nbsp;</span>
+					<span class="badge pull-right"><a href="<?php echo $this->url(array('module'=>'employer','controller'=>'contract','action'=>'delete','id'=>$this->arrData->id), null, true);?>">Reject</a></span>
+                </div>
+            </div>                
+            </div>                        
+        </div>        
+        <div class="panel-footer">
+            <?php if(empty($this->contractStatus)) : ?>
+                <a href="<?php echo $this->url(array('module'=>'employer','controller'=>'contract','action'=>'add','contractor_id'=>$this->arrData->id,'job_id'=>$this->job_id), null, true);?>"><span class="badge">start contract</span></a>            
+            <?php endif; ?>
+        </div>
+    </div>     
+    <?php endforeach;?>   
+<?php endif; ?>
+   
+<?php echo $this->paginationControl ( $this->objPaginator, 'Sliding', 'paginator.phtml', array ('extraVar' => $this->pagingExtraVar ) ); ?>

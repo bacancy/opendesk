@@ -1,0 +1,76 @@
+<!-- for datepicker -->
+<?php $this->headLink()->offsetSetStylesheet(11 ,$this->baseUrl().'/css/jquery-ui/jquery-ui-1.10.3.custom.min.css');?>
+<?php $this->headLink()->offsetSetStylesheet(12 ,$this->baseUrl().'/css/jquery-ui/jquery-ui-timepicker-addon.css');?>
+<?php $this->headScript()->offsetSetFile(11 ,$this->baseUrl().'/js/jquery-ui/jquery-ui-1.10.3.custom.min.js');?>
+<?php $this->headScript()->offsetSetFile(12 ,$this->baseUrl().'/js/jquery-ui/jquery-ui-timepicker-addon.js');?>
+
+<?php $this->InlineScript()->captureStart()?>
+$(document).ready(function() {   
+    $("#type").change(function() {
+        if($("#type").val() == '2'){
+            $("#show").show();
+        }else{
+            $("#show").hide();
+        }
+    });    
+    $("#type").trigger("change");
+    
+    $.extend($.datepicker,{_checkOffset:function(inst,offset,isFixed){return offset}});
+    $('#duration_start').datetimepicker({
+	timeFormat: "hh:mm tt",
+        onSelect: function() {
+            $('#duration_end').datepicker('option', 'minDate', $(this).datepicker('getDate') || 0);
+        }
+    });
+    
+    $('#duration_end').datetimepicker({
+	timeFormat: "hh:mm tt",
+        onSelect: function() {
+            $('#duration_start').datepicker('option', 'maxDate', $(this).datepicker('getDate'));
+        }
+    });
+    
+});
+<?php $this->InlineScript()->captureEnd()?>
+
+<div class="row jquery-ui">                
+    <form class="form-horizontal" action="" method="POST" role="form">                  
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Job Category');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->category_id;?></div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Job Title');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->title;?></div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Job Description');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->description;?></div>
+      </div>  
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Job Type');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->type;?></div>
+      </div>                              
+      <div id="show" class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Hourly Rate');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->hourly_rate;?></div>
+      </div>      
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('job Estimate (cost/hours)');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->estimate;?></div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Job Duration');?></label>
+        <div class="col-lg-2"><?php echo $this->objForm->duration_start;?></div>
+        <div class="col-lg-2"><?php echo $this->objForm->duration_end;?></div>
+      </div>  
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('select currency');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->currency_id;?></div>
+      </div>         
+        
+      <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10"><?php echo $this->objForm->submit;?></div>
+      </div>
+    </form>            
+</div>

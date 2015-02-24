@@ -1,0 +1,67 @@
+<!-- for infinite scroll plugin -->
+<?php $this->headScript()->offsetSetFile(11 ,$this->baseUrl().'/js/infinite_scroll/jquery_infinite_scroll.js');?>
+
+<?php $this->InlineScript()->captureStart()?>
+$(document).ready(function() {
+    jQuery.ias({
+        container : '.listcontainer',
+        item: '.item',
+        pagination: '.pagination',
+        next: '.next',
+        loader: '<img src="https://raw.github.com/webcreate/infinite-ajax-scroll/master/dist/images/loader.gif"/>', 
+        triggerPageThreshold: 100       
+    });
+});
+<?php $this->InlineScript()->captureEnd()?>
+
+<a href="<?php echo $this->url(array('module'=>'agency','controller'=>'job','action'=>'add'), null, true);?>" class="btn btn-success">
+    <span class="glyphicon glyphicon-plus-sign"></span>
+    Post job
+</a>
+<hr>
+
+<?php if(count($this->arrDataList) < 1) : ?>
+    <p><?php echo $this->translate('no job posted yet');?></p>
+<?php else: ?> 
+    <div class="listcontainer">
+    <?php foreach ( $this->arrDataList as $this->arrData ):?>
+    <div id="<?php echo $this->arrData->id;?>" class="panel panel-default">
+        <div class="panel-heading">
+            <strong>Job: </strong> <?php echo (substr($this->arrData->title,0,100))."...";?>             
+            <span class="badge pull-right"><?php echo $this->escape($this->jobType[$this->arrData->type])?></span>            
+        </div>
+        <div class="panel-body">            
+            <div class="form-horizontal">
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Title: </label>
+                  <div class="col-lg-8"><p class="form-control-static"><?php echo wordwrap($this->escape($this->arrData->title), 100, "<br />\n",true);?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Description: </label>
+                  <div class="col-lg-8"><p class="form-control-static"><?php echo wordwrap($this->escape($this->arrData->description), 120, "<br />\n",true);?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Job type: </label>
+                  <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->jobType[$this->arrData->type])?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Estimate: </label>
+                  <div class="col-lg-8"><p class="form-control-static"><?php echo ($this->arrData->type=="1")?$this->currencySymbol[$this->arrData->currency_id].'&nbsp'.$this->escape($this->arrData->estimate):$this->escape($this->arrData->estimate)." Hours (".$this->currencySymbol[$this->arrData->currency_id].$this->arrData->hourly_rate."\h)";?></p></div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1" class="col-lg-2 control-label">Duration: </label>
+                  <div class="col-lg-8"><p class="form-control-static"><?php echo $this->escape($this->arrData->duration_day);?> Days</p></div>
+                </div> 
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a href="<?php echo $this->url(array('module'=>'agency','controller'=>'job','action'=>'edit','id'=>$this->arrData->id), null, true);?>"><span class="badge">edit job</span></a>
+            <a href="<?php echo $this->url(array('module'=>'agency','controller'=>'job','action'=>'delete','id'=>$this->arrData->id), null, true);?>"><span class="badge">delete job</span></a>
+            <a href="<?php echo $this->url(array('module'=>'agency','controller'=>'job','action'=>'assign','id'=>$this->arrData->id), null, true);?>"><span class="badge">Assign job</span></a>
+        </div>
+    </div>     
+    <?php endforeach;?>
+    </div>
+<?php endif; ?>
+   
+<?php echo $this->paginationControl ( $this->objPaginator, 'Sliding', 'paginator.phtml', array ('extraVar' => $this->pagingExtraVar ) ); ?>

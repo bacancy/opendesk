@@ -1,0 +1,63 @@
+<div class="row">        
+    <div class="col-sm-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Agent Profile</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data" role="form">
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Name');?></label>
+                    <div class="col-lg-4"><?php echo $this->agentinfo['name'];?></div>
+                  </div>                                    
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Email');?></label>
+                    <div class="col-lg-4"><?php echo $this->agentinfo['email'];?></div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('profile_pic');?></label>
+                    <div class="col-lg-4">
+                        <?php if( $this->agentinfo['profile_pic']!="" && file_exists(ASSETS_ROOT_PATH.$this->agentinfo['profile_pic']) ) : ?>                          
+                          <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH.$this->agentinfo['profile_pic']."&w=100";?>" class="img-thumbnail">
+                        <?php else : ?>
+                          <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH."portrait.png&w=100";?>" class="img-thumbnail">
+                        <?php endif;?>
+                        <?php echo $this->objForm->profile_pic;?>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Mobile');?></label>
+                    <div class="col-lg-4"><?php echo $this->objForm->mobile;?></div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Address');?></label>
+                    <div class="col-lg-4"><?php echo $this->objForm->address;?></div>
+                  </div>
+				  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('City');?></label>
+                    <div class="col-lg-4"><?php echo $this->objForm->city;?></div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('State');?></label>
+                    <div class="col-lg-4"><?php echo $this->objForm->state;?></div>
+                  </div>
+				  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Country');?></label>
+                    <div class="col-lg-4"><?php echo $this->objForm->country;?></div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Work Profile');?></label>
+                    <div class="col-lg-4"><?php echo $this->objForm->workprofile;?></div>
+                  </div>
+				  <div class="form-group">
+                    <label class="col-lg-2 control-label"><?php echo $this->translate('Desc');?></label>
+                    <div class="col-lg-4"><?php echo $this->objForm->desc;?></div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10"><?php echo $this->objForm->submit;?></div>
+                  </div>
+                </form>
+            </div>
+        </div>    
+    </div>
+</div>    

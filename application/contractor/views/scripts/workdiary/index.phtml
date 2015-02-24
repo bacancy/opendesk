@@ -1,0 +1,58 @@
+<!-- for bootstrap model -->
+<?php $this->headScript()->offsetSetFile(11 ,$this->baseUrl().'/js/model/bootstrap-model.min.js');?>
+
+<?php if(count($this->arrDataList) < 1) : ?>
+    <?php if($this->arrContract['contract_status']!='4' && $this->arrContract['contract_manual_allowed']=='1'):?>
+    <ol class="breadcrumb">        
+        <li><a href="<?php echo $this->url(array('module'=>'contractor','controller'=>'workdiary','action'=>'add','contract_id'=>$this->contract_id), null, true);?>">Add manually</a></li>        
+    </ol>
+    <?php endif;?>
+    <div class="jumbotron"><?php echo $this->translate('No entries found related to this contract');?></div>
+<?php else: ?>
+    <ol class="breadcrumb">
+        <li><a href="<?php echo $this->url(array('module'=>'contractor','controller'=>'workdiary','action'=>'index','contract_id'=>$this->contract_id), null, true);?>">All</a></li>
+        <li><a href="<?php echo $this->url(array('module'=>'contractor','controller'=>'workdiary','action'=>'index','contract_id'=>$this->contract_id,'weekly'=>'1'), null, true);?>">Weekly</a></li>        
+        <?php if($this->arrContract['contract_status']!='4' && $this->arrContract['contract_manual_allowed']=='1'):?>
+        <li><a href="<?php echo $this->url(array('module'=>'contractor','controller'=>'workdiary','action'=>'add','contract_id'=>$this->contract_id), null, true);?>">Add manually</a></li>
+        <?php endif;?>
+        <li><a href="<?php echo $this->url(array('module'=>'contractor','controller'=>'workdiary','action'=>'exportpdf','contract_id'=>$this->contract_id), null, true);?>">Export as pdf</a></li>
+        <li><a href="<?php echo $this->url(array('module'=>'contractor','controller'=>'workdiary','action'=>'exportcsv','contract_id'=>$this->contract_id), null, true);?>">Export as csv</a></li>
+    </ol>
+    <div class="row">
+    <?php foreach ( $this->arrDataList as $this->arrData ):?>                    
+        <?php //_pr($this->arrData ,1); ?>        
+        <div class="col-md-3 col-md-offset-1">
+            <div class="thumbnail">             
+                <?php if( $this->arrData['screenshot']!="" && file_exists(SCREENSHOT_ROOT_PATH.$this->arrData['screenshot']) ) : ?>                          
+                <a data-toggle="modal" href="#modal_<?php echo $this->arrData['id'];?>"><img src="<?php echo PHPTHUMB_PATH.SCREENSHOT_PATH.$this->arrData['screenshot']."&w=250&h=250";?>" width="250" height="250" class="img-responsive"></a>
+                    <div class="modal fade" id="modal_<?php echo $this->arrData['id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">                
+                            <img src="<?php echo SCREENSHOT_PATH.$this->arrData['screenshot'];?>" class="img-thumbnail">          
+                        </div>
+                    </div>
+                <?php else : ?>
+                    <a data-toggle="modal" href="#modal_<?php echo $this->arrData['id'];?>"><img src="<?php echo PHPTHUMB_PATH.SCREENSHOT_PATH."no_screenshot.jpg&w=250&h=250";?>" width="250" height="250" class="img-responsive"></a>                    
+                <?php endif;?>            
+                <div class="caption">
+                <p><strong>memo:</strong> <?php echo $this->arrData['memo'];?></p>
+                <p><strong>time Logged at:</strong> <?php $date = new DateTime($this->arrData['time_loged']);?> <?php echo $date->format('g:ia \o\n l jS F Y');?></p>
+                <p><strong>key stroke:</strong> <?php echo $this->arrData['keystroke_count'];?></p>
+                <p><strong>mouse stroke:</strong> <?php echo $this->arrData['mousestroke_count'];?></p>                
+                <?php if( date_belongsto_currentweek($this->arrData['time_loged']) && ($this->arrContract['contract_status']!='4')) :?>
+                <p><a href="<?php echo $this->url(array('module'=>'contractor','controller'=>'workdiary','action'=>'edit','id'=>$this->arrData['id']), null, true);?>">
+                    <span class="glyphicon glyphicon-edit"></span>
+                </a>
+                <a href="<?php echo $this->url(array('module'=>'contractor','controller'=>'workdiary','action'=>'delete','id'=>$this->arrData['id']), null, true);?>">
+                    <span class="glyphicon glyphicon-minus-sign"></span>
+                </a></p>    
+                <?php else: ?>    
+                <p><span class="glyphicon glyphicon-edit"></span> <span class="glyphicon glyphicon-minus-sign"></span></p>
+                <?php endif;?>
+                </div>				
+            </div>			
+        </div>
+    <?php endforeach;?>   
+    </div>    
+<?php endif; ?>
+      
+<?php echo $this->paginationControl ( $this->objPaginator, 'Sliding', 'paginator.phtml', array ('extraVar' => $this->pagingExtraVar ) ); ?>

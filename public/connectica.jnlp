@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="http://www.connectica.de/public" href="connectica.jnlp">
+	<information>
+		<title>Connectica Tracker App</title>
+  		<vendor>HW Ventures Ltd.</vendor>
+  		<homepage href="http://www.hw-ventures.com" />
+  		<description>Connectica Tracker Tool</description>
+		<!--
+		<icon href="ToshibaLogo48x48.png"/>
+		<icon kind="shortcut" href="ToshibaLogo64x64.ico" width="64" height="64"/>
+		<icon kind="splash" href="ToshibaSplash.gif"/>
+		-->
+		<offline-allowed/>
+		<shortcut online="true">
+			<desktop/> 
+			<menu submenu="Connectica Tracker">The Menu</menu>
+		</shortcut>
+	</information>
+
+	
+	<security>
+  		<all-permissions/>
+	</security>
+
+
+
+	
+	<resources>
+  		<j2se version="1.6+" />
+  		<jar href="connectica.jar"/>
+		<!--
+		<jar href="mailapi.jar" download="eager"/>
+		<jar href="smtp.jar" download="eager"/>
+		-->
+	</resources>
+	<application-desc main-class="com.hwventures.connectica.ConnecticaTracker" />
+</jnlp>

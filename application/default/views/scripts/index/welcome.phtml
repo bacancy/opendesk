@@ -1,0 +1,10 @@
+<div class="row">        
+    <div class="jumbotron">
+        <h3>Welcome, <?php echo $this->objSess->email;?></h3>
+                
+        <?php if( Zend_Auth::getInstance()->hasIdentity() ) : ?>	
+            <a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'logout'), null, true);?>">Logout</a>
+        <?php endif;?>
+    </div>          
+        
+</div>

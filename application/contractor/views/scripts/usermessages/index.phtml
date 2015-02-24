@@ -1,0 +1,45 @@
+<?php //echo $this->objSess->user_id;?>
+<?php if(count($this->arrDataList) < 1) : ?>
+    <p><?php echo $this->translate('no record found');?></p>
+<?php else: ?>            
+    <?php foreach ( $this->arrDataList as $this->arrData ):?>            
+    <?php if($this->arrData['sender_id'] == $this->objSess->user_id) : ?>        
+    <div class="callout callout-warning">
+        <div class="media">                   
+            <?php if( $this->arrData['receiver_portrait']!="" && file_exists(ASSETS_ROOT_PATH.$this->arrData['receiver_portrait']) ) : ?>                          
+              <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH.$this->arrData['receiver_portrait']."&w=64";?>" class="pull-left media-object img-responsive">
+            <?php else : ?>          
+              <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH."portrait.png&w=64";?>" class="pull-left media-object img-responsive">
+            <?php endif;?>      
+          <div class="media-body">
+            <h4 class="media-heading"> 
+                <a href="<?php echo $this->url(array('module'=>'contractor','controller'=>'usermessages','action'=>'index','userid'=>''), null, true);?>">
+                <?php echo $this->arrData['receiver_firstname'];?> 
+                </a>    
+                [sent]
+            </h4>
+            <h6>[ <?php echo $this->arrData['receiver_email'];?> ] [ <?php $date = new DateTime($this->arrData['msg_date']);?><?php echo $date->format('g:ia \o\n l jS F Y');?> ]</h6>
+            <p style="width: 700px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><?php echo $this->arrData['msg_content'];?></p>        
+          </div>
+        </div>      
+    </div>        
+    <?php else: ?>
+    <div class="callout callout-info">            
+        <div class="media">                   
+            <?php if( $this->arrData['sender_portrait']!="" && file_exists(ASSETS_ROOT_PATH.$this->arrData['sender_portrait']) ) : ?>                          
+              <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH.$this->arrData['sender_portrait']."&w=64";?>" class="pull-left media-object img-responsive">
+            <?php else : ?>
+              <img src="<?php echo PHPTHUMB_PATH.ASSETS_PATH."portrait.png&w=64";?>" class="pull-left media-object img-responsive">
+            <?php endif;?>      
+          <div class="media-body">
+            <h4 class="media-heading"><?php echo $this->arrData['sender_firstname'];?> [inbox]</h4>
+            <h6>[ <?php echo $this->arrData['sender_email'];?> ] [ <?php $date = new DateTime($this->arrData['msg_date']);?><?php echo $date->format('g:ia \o\n l jS F Y');?> ]</h6>
+            <p style="width: 700px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><?php echo $this->arrData['msg_content'];?></p>        
+          </div>
+        </div>            
+    </div>       
+    <?php endif; ?>
+    <?php endforeach;?>       
+<?php endif; ?>
+   
+<?php echo $this->paginationControl ( $this->objPaginator, 'Sliding', 'paginator.phtml', array ('extraVar' => $this->pagingExtraVar ) ); ?>

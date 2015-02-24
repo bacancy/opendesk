@@ -1,0 +1,57 @@
+<div class="row">                    
+    <blockquote>
+        <p><?php echo $this->translate('Member Register');?></p>
+        <small>provide information to register with Connectica</small>
+    </blockquote>    
+    <form class="form-horizontal" action="" method="POST" role="form">
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Email');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->email;?></div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Password');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->password;?></div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Retype password');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->retypepassword;?></div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Username');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->username;?></div>
+      </div>  
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('First name');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->firstname;?></div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Last name');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->lastname;?></div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Phone No');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->phone;?></div>
+      </div>  
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Country');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->country;?></div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('City');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->city;?></div>
+      </div> 
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('zip code');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->postalcode;?></div>
+      </div>                
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Captcha');?></label>
+        <div class="col-lg-6"><?php echo $this->recaptcha->getHTML();?></div>
+      </div>  
+      <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10"><?php echo $this->objForm->submit;?></div>
+      </div>
+    </form> 
+    
+    <p>Already have account, <a href="<?php echo $this->url(array('module'=>'default','controller'=>'index','action'=>'login'), null, true);?>">sign in</a></p>
+</div>        

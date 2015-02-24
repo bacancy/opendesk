@@ -1,0 +1,44 @@
+<!-- for bootstrap model -->
+<?php $this->headLink()->offsetSetStylesheet(11 ,$this->baseUrl().'/css/jquery-ui/jquery-ui-1.10.3.custom.min.css');?>
+<?php $this->headLink()->offsetSetStylesheet(12 ,$this->baseUrl().'/css/jquery-ui/jquery-ui-timepicker-addon.css');?>
+<?php $this->headScript()->offsetSetFile(11 ,$this->baseUrl().'/js/jquery-ui/jquery-ui-1.10.3.custom.min.js');?>
+<?php $this->headScript()->offsetSetFile(12 ,$this->baseUrl().'/js/jquery-ui/jquery-ui-timepicker-addon.js');?>
+
+<?php $this->InlineScript()->captureStart()?>
+$(function() {
+    $('#time_loged').datetimepicker({
+	timeFormat: "hh:mm tt",        
+    });
+});
+<?php $this->InlineScript()->captureEnd()?>
+
+<div class="row jquery-ui">                
+    <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data" role="form">                  
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('screenshot');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->screenshot;?></div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Memo');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->memo;?></div>
+      </div>      
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('Time loged at');?></label>
+        <div class="col-lg-3 input-group">
+            <?php echo $this->objForm->time_loged;?>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+        </div>
+      </div>                                      
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('keystroke count');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->keystroke_count;?></div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label"><?php echo $this->translate('mousestroke count');?></label>
+        <div class="col-lg-4"><?php echo $this->objForm->mousestroke_count;?></div>
+      </div>                    
+      <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10"><?php echo $this->objForm->submit;?></div>
+      </div>
+    </form>            
+</div>
