@@ -1,8 +1,0 @@
-Issue tracker: http://redmine.tickets4bus.com/projects/opendesk/issues?page=2
-username: JagdishBhanderi
-password: railtrack20
-
-
-bitbucket::
-Username: binal.patel@bacancytechnology.com
-Password: Bacancy@201$
